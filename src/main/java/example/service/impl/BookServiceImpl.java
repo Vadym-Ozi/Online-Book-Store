@@ -2,9 +2,8 @@ package example.service.impl;
 
 import example.model.Book;
 import example.service.BookService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
+import org.springframework.stereotype.Service;
 
 @Service
 public class BookServiceImpl implements BookService {

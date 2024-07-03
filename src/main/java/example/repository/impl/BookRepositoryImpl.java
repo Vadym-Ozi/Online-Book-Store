@@ -2,9 +2,8 @@ package example.repository.impl;
 
 import example.model.Book;
 import example.repository.BookRepository;
-import org.springframework.stereotype.Repository;
-
 import java.util.List;
+import org.springframework.stereotype.Repository;
 
 @Repository
 public class BookRepositoryImpl implements BookRepository {
