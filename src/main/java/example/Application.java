@@ -10,12 +10,12 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
-public class OnlineBookStoreApplication {
+public class Application {
     @Autowired
     private BookService bookService;
 
     public static void main(String[] args) {
-        SpringApplication.run(OnlineBookStoreApplication.class, args);
+        SpringApplication.run(Application.class, args);
     }
 
     @Bean
@@ -24,14 +24,14 @@ public class OnlineBookStoreApplication {
 
             @Override
             public void run(String... args) throws Exception {
-                Book book1 = new Book();
-                book1.setTitle("Book 1");
-                book1.setAuthor("Author 1");
-                book1.setIsbn("ISBN 1");
-                book1.setPrice(BigDecimal.valueOf(500));
-                book1.setDescription("Book about mafia");
-                book1.setCoverImage("smile");
-                bookService.save(book1);
+                Book book = new Book();
+                book.setTitle("Book 1");
+                book.setAuthor("Author 1");
+                book.setIsbn("ISBN 1");
+                book.setPrice(BigDecimal.valueOf(500));
+                book.setDescription("Book about mafia");
+                book.setCoverImage("smile");
+                bookService.save(book);
                 bookService.findAll();
             }
         };

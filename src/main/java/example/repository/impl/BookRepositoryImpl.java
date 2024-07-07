@@ -32,7 +32,7 @@ public class BookRepositoryImpl implements BookRepository {
             if (transaction != null) {
                 transaction.rollback();
             }
-            throw new DataProcessingException("Book not added to db. " + book);
+            throw new DataProcessingException("Can`t add book. " + book);
         } finally {
             if (session != null) {
                 session.close();
@@ -46,7 +46,7 @@ public class BookRepositoryImpl implements BookRepository {
         try (Session session = factory.openSession()) {
             return session.createQuery("SELECT u FROM Book u", Book.class).getResultList();
         } catch (RuntimeException e) {
-            throw new DataProcessingException("DB is empty. " + e.getMessage());
+            throw new DataProcessingException("Can`t find all books." + e);
         }
     }
 }
