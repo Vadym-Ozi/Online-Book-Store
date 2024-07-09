@@ -8,19 +8,17 @@ import example.model.Book;
 import example.repository.BookRepository;
 import example.service.BookService;
 import java.util.List;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
-    private final BookRepository bookRepository;
-    private final BookMapper bookMapper;
-
     @Autowired
-    public BookServiceImpl(BookMapper bookMapper, BookRepository bookRepository) {
-        this.bookMapper = bookMapper;
-        this.bookRepository = bookRepository;
-    }
+    private final BookRepository bookRepository;
+    @Autowired
+    private final BookMapper bookMapper;
 
     @Override
     public BookDto createBook(CreateBookRequestDto requestDto) {

@@ -5,6 +5,7 @@ import example.model.Book;
 import example.repository.BookRepository;
 import java.util.List;
 import java.util.Optional;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
@@ -12,13 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 @Repository
+@RequiredArgsConstructor
 public class BookRepositoryImpl implements BookRepository {
-    private final SessionFactory factory;
-
     @Autowired
-    public BookRepositoryImpl(SessionFactory factory) {
-        this.factory = factory;
-    }
+    private final SessionFactory factory;
 
     @Override
     public Book save(Book book) {
