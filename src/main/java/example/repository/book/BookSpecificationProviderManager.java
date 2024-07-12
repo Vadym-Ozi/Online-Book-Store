@@ -1,8 +1,9 @@
-package example.repository;
+package example.repository.book;
 
 import example.exception.SpecificationNotFoundException;
 import example.model.Book;
-import example.repository.book.SpecificationProvider;
+import example.repository.SpecificationProvider;
+import example.repository.SpecificationProviderManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import java.util.List;

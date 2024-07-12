@@ -1,7 +1,9 @@
-package example.repository;
+package example.repository.book;
 
 import example.dto.BookSearchParameters;
 import example.model.Book;
+import example.repository.SpecificationBuilder;
+import example.repository.SpecificationProviderManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
@@ -10,8 +12,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
     private static final String authorKeyword = "author";
-    private static final String titleKeyword = "title";
-    private SpecificationProviderManager<Book> bookSpecificationProviderManager;
+    private static final String priceKeyword = "price";
+    private final SpecificationProviderManager<Book> bookSpecificationProviderManager;
 
     @Override
     public Specification<Book> build(BookSearchParameters searchParameters) {
@@ -21,10 +23,10 @@ public class BookSpecificationBuilder implements SpecificationBuilder<Book> {
                     .getSpecificationProvider(authorKeyword)
                     .getSpecification(searchParameters.authors()));
         }
-        if (searchParameters.authors() != null && searchParameters.authors().length > 0) {
+        if (searchParameters.prices() != null && searchParameters.prices().length > 0) {
             spec = spec.and(bookSpecificationProviderManager
-                    .getSpecificationProvider(titleKeyword)
-                    .getSpecification(searchParameters.authors()));
+                    .getSpecificationProvider(priceKeyword)
+                    .getSpecification(searchParameters.prices()));
         }
         return spec;
     }

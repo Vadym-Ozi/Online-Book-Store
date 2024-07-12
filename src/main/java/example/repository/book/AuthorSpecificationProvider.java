@@ -1,6 +1,7 @@
 package example.repository.book;
 
 import example.model.Book;
+import example.repository.SpecificationProvider;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 import java.util.Arrays;
