@@ -8,16 +8,16 @@ import java.util.Arrays;
 
 @Component
 public class PriceSpecificationProvider implements SpecificationProvider<Book> {
-    private static final String priceParameter = "price";
+    private static final String PRICE_PARAMETER = "price";
 
     @Override
     public String getKey() {
-        return priceParameter;
+        return PRICE_PARAMETER;
     }
 
     @Override
     public Specification<Book> getSpecification(String[] params) {
-        return (root, query, criteriaBuilder) -> root.get(priceParameter)
+        return (root, query, criteriaBuilder) -> root.get(PRICE_PARAMETER)
                 .in(Arrays.stream(params).toArray());
     }
 }
