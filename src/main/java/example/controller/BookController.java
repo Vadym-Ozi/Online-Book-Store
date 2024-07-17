@@ -9,6 +9,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,8 +26,8 @@ public class BookController {
     private final BookService bookService;
 
     @GetMapping
-    public List<BookDto> getAll() {
-        return bookService.getAll();
+    public List<BookDto> getAll(@ParameterObject @PageableDefault Pageable pageable) {
+        return bookService.getAll(pageable);
     }
 
     @GetMapping("/{id}")
@@ -44,7 +46,7 @@ public class BookController {
     }
 
     @GetMapping("/search")
-    public List<BookDto> search(@Valid BookSearchParameters params, Pageable pageable) {
+    public List<BookDto> search(@Valid @ParameterObject @PageableDefault BookSearchParameters params, Pageable pageable) {
         return bookService.search(params, pageable);
     }
 }
