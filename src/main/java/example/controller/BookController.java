@@ -6,7 +6,9 @@ import example.dto.CreateBookRequestDto;
 import example.service.BookService;
 import java.util.List;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public BookDto getBookById(@PathVariable Long id) {
+    public BookDto getBookById(@PathVariable @Positive Long id) {
         return bookService.getById(id);
     }
 
@@ -37,12 +39,12 @@ public class BookController {
     }
 
     @PutMapping("/{id}")
-    public void updateBook(@PathVariable Long id) {
+    public void deleteBook(@PathVariable @Positive Long id) {
         bookService.deleteById(id);
     }
 
     @GetMapping("/search")
-    public List<BookDto> search(BookSearchParameters params) {
-        return bookService.search(params);
+    public List<BookDto> search(@Valid BookSearchParameters params, Pageable pageable) {
+        return bookService.search(params, pageable);
     }
 }
