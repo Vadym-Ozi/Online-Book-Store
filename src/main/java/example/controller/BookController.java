@@ -57,14 +57,14 @@ public class BookController {
 
     @Hidden
     @PutMapping("/{id}")
-    public void updateBook(@PathVariable Long id) {
+    public void deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
     }
 
 
     @GetMapping("/search")
     @Operation(summary = "Search by param", description = "Get list of all books sorted by chosen parameter")
-    public List<BookDto> search(BookSearchParameters params) {
-        return bookService.search(params);
+    public List<BookDto> search(BookSearchParameters params, Pageable pageable) {
+        return bookService.search(params, pageable);
     }
 }
