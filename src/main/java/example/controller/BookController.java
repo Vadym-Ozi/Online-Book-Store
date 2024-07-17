@@ -55,8 +55,10 @@ public class BookController {
         return bookService.createBook(requestDto);
     }
 
-    @Hidden
+
     @PutMapping("/{id}")
+    @Operation(summary = "Delete book by ID",
+            description = "Delete existing book by id for user, but do not delete from DB")
     public void deleteBook(@PathVariable Long id) {
         bookService.deleteById(id);
     }
