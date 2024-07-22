@@ -1,4 +1,4 @@
-package example.dto;
+package example.dto.bookDtos;
 
 import java.math.BigDecimal;
 import jakarta.validation.constraints.DecimalMin;

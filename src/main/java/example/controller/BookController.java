@@ -1,8 +1,8 @@
 package example.controller;
 
-import example.dto.BookDto;
-import example.dto.BookSearchParameters;
-import example.dto.CreateBookRequestDto;
+import example.dto.bookDtos.BookDto;
+import example.dto.bookDtos.BookSearchParameters;
+import example.dto.bookDtos.CreateBookRequestDto;
 import example.service.BookService;
 import java.util.List;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;

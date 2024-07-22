@@ -8,6 +8,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import java.time.LocalDateTime;
@@ -40,5 +41,34 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
             return fieldName + " " + errorMessage;
         }
         return e.getDefaultMessage();
+    }
+
+    @ExceptionHandler(RegistrationException.class)
+    public ResponseEntity<Object> handleRegistrationException(RegistrationException ex) {
+        return createBodyMessage(ex, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
+        return createBodyMessage(ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(DataProcessingException.class)
+    public ResponseEntity<Object> handleDataProcessingException(DataProcessingException ex) {
+        return createBodyMessage(ex, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(SpecificationNotFoundException.class)
+    public ResponseEntity<Object> handleSpecificationNotFoundException(SpecificationNotFoundException ex) {
+        return createBodyMessage(ex, HttpStatus.NOT_FOUND);
+    }
+
+    private ResponseEntity<Object> createBodyMessage(Exception ex, HttpStatus status) {
+        Map<String, Object> body = new LinkedHashMap<>();
+        body.put("timestamp", LocalDateTime.now());
+        body.put("status", status);
+        body.put("error", ex.getClass().getSimpleName());
+        body.put("message", ex.getMessage());
+        return new ResponseEntity<>(body, status);
     }
 }
