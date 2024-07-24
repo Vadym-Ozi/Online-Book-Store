@@ -45,16 +45,11 @@ public class CustomGlobalExceptionHandler extends ResponseEntityExceptionHandler
 
     @ExceptionHandler(RegistrationException.class)
     public ResponseEntity<Object> handleRegistrationException(RegistrationException ex) {
-        return createBodyMessage(ex, HttpStatus.BAD_REQUEST);
+        return createBodyMessage(ex, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<Object> handleEntityNotFoundException(EntityNotFoundException ex) {
-        return createBodyMessage(ex, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(DataProcessingException.class)
-    public ResponseEntity<Object> handleDataProcessingException(DataProcessingException ex) {
         return createBodyMessage(ex, HttpStatus.NOT_FOUND);
     }
 

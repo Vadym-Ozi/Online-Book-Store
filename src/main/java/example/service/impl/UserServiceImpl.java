@@ -9,6 +9,7 @@ import example.repository.user.UserRepository;
 import example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,13 +17,13 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    @Transactional
     @Override
     public UserResponseDto register(UserRegistrationRequestDto request) throws RegistrationException {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RegistrationException("This email is already used. Can`t register user");
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new RegistrationException("This email is already used: " + request.getEmail());
         }
         User user = userMapper.toModel(request);
-        User savedUser = userRepository.save(user);
-        return userMapper.toUserRespondDto(savedUser);
+        return userMapper.toUserRespondDto(userRepository.save(user));
     }
 }

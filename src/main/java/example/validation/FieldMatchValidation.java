@@ -2,7 +2,8 @@ package example.validation;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import java.lang.reflect.Field;
+import org.springframework.beans.BeanWrapperImpl;
+import java.util.Objects;
 
 public class FieldMatchValidation implements ConstraintValidator<FieldMatch, Object> {
     private String password;
@@ -16,17 +17,8 @@ public class FieldMatchValidation implements ConstraintValidator<FieldMatch, Obj
 
     @Override
     public boolean isValid(final Object value, final ConstraintValidatorContext context) {
-        Class<?> clazz = value.getClass();
-        try {
-            Field pass = clazz.getDeclaredField(password);
-            Field repeatPass = clazz.getDeclaredField(repeatPassword);
-            pass.setAccessible(true);
-            repeatPass.setAccessible(true);
-            String passValue = (String) pass.get(value);
-            String repeatPassValue = (String) repeatPass.get(value);
-            return passValue != null && passValue.equals(repeatPassValue);
-        } catch (NoSuchFieldException | IllegalAccessException e) {
-            return false;
-        }
+        Object field = new BeanWrapperImpl(value).getPropertyValue(this.password);
+        Object fieldMatch = new BeanWrapperImpl(value).getPropertyValue(this.repeatPassword);
+        return Objects.equals(field, fieldMatch);
     }
 }
