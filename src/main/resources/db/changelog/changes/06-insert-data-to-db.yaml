@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01-create-book-table
+      author: Vadym P
+      changes:
+        - insert:
+            tableName: roles
+            columns:
+              - column: {name: name, value: "ROLE_ADMIN"}
+        - insert:
+            tableName: roles
+            columns:
+              - column: { name: name, value: "ROLE_USER" }
+        - insert:
+            tableName: users
+            columns:
+              - column: { name: email, value: "Admin@gmail.com" }
+              - column: { name: password, value: "$2a$10$IcZHPayKLAonQnHnRuG9heIcvHLO53jMuU/mwUSVcJ3UDBBR1Jfq6" }
+              - column: { name: first_name, value: "Iron" }
+              - column: { name: last_name, value: "Man" }
+              - column: { name: shipping_address, value: "W 47th ave" }
+              - column: { name: role, value: "ROLE_ADMIN" }

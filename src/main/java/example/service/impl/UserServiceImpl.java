@@ -4,10 +4,13 @@ import example.dto.userDtos.UserRegistrationRequestDto;
 import example.dto.userDtos.UserResponseDto;
 import example.exception.RegistrationException;
 import example.mapper.UserMapper;
+import example.model.Role;
 import example.model.User;
 import example.repository.user.UserRepository;
 import example.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.support.BeanDefinitionDsl;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -16,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
+    private final PasswordEncoder encoder;
 
     @Transactional
     @Override
@@ -24,6 +28,7 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException("This email is already used: " + request.getEmail());
         }
         User user = userMapper.toModel(request);
+        user.setPassword(encoder.encode(request.getPassword()));
         return userMapper.toUserRespondDto(userRepository.save(user));
     }
 }
