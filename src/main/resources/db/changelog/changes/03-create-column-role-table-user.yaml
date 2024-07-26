@@ -11,4 +11,4 @@ databaseChangeLog:
                   type: VARCHAR(255)
                   constraints:
                     nullable: false
-                  defaultValue: 'ROLE_USER'
+                  defaultValue: 'USER'

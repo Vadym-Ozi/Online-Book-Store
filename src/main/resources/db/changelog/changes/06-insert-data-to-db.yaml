@@ -6,17 +6,17 @@ databaseChangeLog:
         - insert:
             tableName: roles
             columns:
-              - column: {name: name, value: "ROLE_ADMIN"}
+              - column: {name: name, value: "ADMIN"}
         - insert:
             tableName: roles
             columns:
-              - column: { name: name, value: "ROLE_USER" }
+              - column: { name: name, value: "USER" }
         - insert:
             tableName: users
             columns:
               - column: { name: email, value: "Admin@gmail.com" }
-              - column: { name: password, value: "$2a$10$IcZHPayKLAonQnHnRuG9heIcvHLO53jMuU/mwUSVcJ3UDBBR1Jfq6" }
+              - column: { name: password, value: "$2a$10$TBpnGAgdwChtyNjP8x9U6.6r3Kj8c6KVn.SmyLgb6I4/tHD0HA5oq" }
               - column: { name: first_name, value: "Iron" }
               - column: { name: last_name, value: "Man" }
               - column: { name: shipping_address, value: "W 47th ave" }
-              - column: { name: role, value: "ROLE_ADMIN" }
+              - column: { name: role, value: "ADMIN" }

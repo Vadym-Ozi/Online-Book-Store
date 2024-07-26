@@ -40,26 +40,28 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookController {
     private final BookService bookService;
 
-    @PreAuthorize("hasRole('ROLE_USER')")
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping
     @Operation(summary = "Get list of all books", description = "Get list of all books")
     public List<BookDto> getAll(@ParameterObject @PageableDefault Pageable pageable) {
         return bookService.getAll(pageable);
     }
 
-
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     @Operation(summary = "Get book by id", description = "Get a single book")
     public BookDto getBookById(@PathVariable @Positive Long id) {
         return bookService.getById(id);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @PostMapping
     @Operation(summary = "Create a new book", description = "Create a new book")
     public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
         return bookService.createBook(requestDto);
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Delete book by ID",
             description = "Delete existing book by id for user, but do not delete from DB")
@@ -67,6 +69,7 @@ public class BookController {
         bookService.deleteById(id);
     }
 
+    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/search")
     @Operation(summary = "Search by param", description = "Get list of all books sorted by chosen parameter")
     public List<BookDto> search(@Valid BookSearchParameters params, @ParameterObject @PageableDefault Pageable pageable) {
