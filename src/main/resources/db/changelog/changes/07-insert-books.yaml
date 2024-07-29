@@ -14,7 +14,7 @@ databaseChangeLog:
                   value: "Author 1"
               - column:
                   name: isbn
-                  value: "ISBN001"
+                  value: "ISBN000000001"
               - column:
                   name: price
                   valueNumeric: 19.99
@@ -38,7 +38,7 @@ databaseChangeLog:
                   value: "Author 2"
               - column:
                   name: isbn
-                  value: "ISBN002"
+                  value: "ISBN000000002"
               - column:
                   name: price
                   valueNumeric: 29.99
@@ -62,7 +62,7 @@ databaseChangeLog:
                   value: "Author 3"
               - column:
                   name: isbn
-                  value: "ISBN003"
+                  value: "ISBN000000003"
               - column:
                   name: price
                   valueNumeric: 39.99

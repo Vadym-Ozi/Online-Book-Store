@@ -24,8 +24,6 @@ public class Role implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private RoleName name;
 
-
-
     @Override
     public String getAuthority() {
         return name.name();
@@ -35,6 +33,7 @@ public class Role implements GrantedAuthority {
         ADMIN,
         USER
     }
+
     public Role(RoleName roleName) {
         this.name = roleName;
     }

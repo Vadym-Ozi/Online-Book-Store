@@ -8,7 +8,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -34,12 +33,13 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-                                .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/books/**")
-//                                .requestMatchers(antMatcher("/auth/**"),
-//                                    antMatcher("/swagger-ui/**"),
-//                                    antMatcher("/v3/api-docs/**"),
-//                                        antMatcher("/books/**"))
-                                .permitAll()
+
+                                .requestMatchers(antMatcher("/auth/**"),
+                                    antMatcher("/swagger-ui/**"),
+                                    antMatcher("/v3/api-docs/**")).permitAll()
+                                .requestMatchers(HttpMethod.GET, "/books/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.POST, "/books/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/books/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )
