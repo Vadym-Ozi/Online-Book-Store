@@ -1,7 +1,7 @@
 package example.service;
 
-import example.dto.userDtos.UserRegistrationRequestDto;
-import example.dto.userDtos.UserResponseDto;
+import example.dto.user.UserRegistrationRequestDto;
+import example.dto.user.UserResponseDto;
 import example.exception.RegistrationException;
 
 public interface UserService {

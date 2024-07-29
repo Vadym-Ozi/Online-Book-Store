@@ -24,13 +24,18 @@ public class Role implements GrantedAuthority {
     @Enumerated(EnumType.STRING)
     private RoleName name;
 
+
+
     @Override
     public String getAuthority() {
         return name.name();
     }
 
-    private enum RoleName {
+    public enum RoleName {
         ADMIN,
         USER
+    }
+    public Role(RoleName roleName) {
+        this.name = roleName;
     }
 }

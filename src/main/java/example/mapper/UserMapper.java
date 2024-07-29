@@ -1,8 +1,8 @@
 package example.mapper;
 
 import example.config.MapperConfig;
-import example.dto.userDtos.UserRegistrationRequestDto;
-import example.dto.userDtos.UserResponseDto;
+import example.dto.user.UserRegistrationRequestDto;
+import example.dto.user.UserResponseDto;
 import example.model.User;
 import org.mapstruct.Mapper;
 

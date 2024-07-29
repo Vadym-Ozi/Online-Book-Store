@@ -1,8 +1,8 @@
 package example.controller;
 
-import example.dto.bookDtos.BookDto;
-import example.dto.bookDtos.BookSearchParameters;
-import example.dto.bookDtos.CreateBookRequestDto;
+import example.dto.book.BookDto;
+import example.dto.book.BookSearchParameters;
+import example.dto.book.CreateBookRequestDto;
 import example.service.BookService;
 import java.util.List;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -47,7 +47,7 @@ public class BookController {
         return bookService.getAll(pageable);
     }
 
-    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
+//    @PreAuthorize("hasAnyRole('USER', 'ADMIN')")
     @GetMapping("/{id}")
     @Operation(summary = "Get book by id", description = "Get a single book")
     public BookDto getBookById(@PathVariable @Positive Long id) {

@@ -1,4 +1,4 @@
-package example.dto.userDtos;
+package example.dto.user;
 
 import example.validation.FieldMatch;
 import example.validation.Password;

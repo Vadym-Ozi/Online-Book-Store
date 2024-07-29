@@ -1,0 +1,77 @@
+databaseChangeLog:
+  - changeSet:
+      id: 02-insert-books
+      author: Vadym P
+      changes:
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Book Title 1"
+              - column:
+                  name: author
+                  value: "Author 1"
+              - column:
+                  name: isbn
+                  value: "ISBN001"
+              - column:
+                  name: price
+                  valueNumeric: 19.99
+              - column:
+                  name: description
+                  value: "Description for Book 1"
+              - column:
+                  name: cover_image
+                  value: "cover1.jpg"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Book Title 2"
+              - column:
+                  name: author
+                  value: "Author 2"
+              - column:
+                  name: isbn
+                  value: "ISBN002"
+              - column:
+                  name: price
+                  valueNumeric: 29.99
+              - column:
+                  name: description
+                  value: "Description for Book 2"
+              - column:
+                  name: cover_image
+                  value: "cover2.jpg"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
+        - insert:
+            tableName: books
+            columns:
+              - column:
+                  name: title
+                  value: "Book Title 3"
+              - column:
+                  name: author
+                  value: "Author 3"
+              - column:
+                  name: isbn
+                  value: "ISBN003"
+              - column:
+                  name: price
+                  valueNumeric: 39.99
+              - column:
+                  name: description
+                  value: "Description for Book 3"
+              - column:
+                  name: cover_image
+                  value: "cover3.jpg"
+              - column:
+                  name: is_deleted
+                  valueBoolean: false
