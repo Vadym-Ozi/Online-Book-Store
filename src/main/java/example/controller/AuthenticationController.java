@@ -7,6 +7,7 @@ import example.dto.user.UserResponseDto;
 import example.exception.RegistrationException;
 import example.security.AuthenticationService;
 import example.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,11 +24,13 @@ public class AuthenticationController {
     private final UserService userService;
     private final AuthenticationService authenticationService;
 
+    @Operation(summary = "Registration of a new user", description = "Registration of a new user")
     @PostMapping("/registration")
     public UserResponseDto registration(@RequestBody @Valid UserRegistrationRequestDto request) throws RegistrationException {
         return userService.register(request);
     }
 
+    @Operation(summary = "User login", description = "Login to user`s account via username and password")
     @PostMapping("/login")
     public UserLoginResponseDto login(@RequestBody @Valid UserLoginRequestDto request) {
        return authenticationService.login(request);
