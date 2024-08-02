@@ -1,37 +1,59 @@
 package example.service.impl;
 
 import example.dto.category.CategoryDto;
+import example.exception.EntityNotFoundException;
+import example.mapper.CategoryMapper;
+import example.model.Category;
+import example.repository.category.CategoryRepository;
 import example.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
+    private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
+
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
-        return null;
+        Category category = categoryMapper.toEntity(categoryDto);
+        return categoryMapper.toDto(categoryRepository.save(category));
     }
 
     @Override
-    public List findAll() {
-        return List.of();
+    public List<CategoryDto> findAll() {
+        return categoryRepository.findAll()
+                .stream()
+                .map(categoryMapper::toDto)
+                .toList();
     }
 
     @Override
     public CategoryDto getById(Long id) {
-        return null;
+        Category category = categoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Can`t find category by id: " + id));
+        return categoryMapper.toDto(category);
     }
 
+    @Transactional
     @Override
     public CategoryDto update(Long id, CategoryDto categoryDto) {
-        return null;
+        Category category = categoryMapper.toEntity(getById(id));
+        category.setId(id);
+        if (!(categoryDto.getName() == null|| categoryDto.getName().isBlank())) {
+            category.setName(categoryDto.getName());
+        }
+        if (!(categoryDto.getDescription() == null || categoryDto.getDescription().isBlank())) {
+            category.setDescription(categoryDto.getDescription());
+        }
+        return categoryMapper.toDto(categoryRepository.save(category));
     }
 
     @Override
     public void deleteById(Long id) {
-
+        categoryRepository.deleteById(id);
     }
 }

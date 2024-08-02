@@ -38,13 +38,15 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(
                         auth -> auth
-
                                 .requestMatchers(antMatcher("/auth/**"),
                                     antMatcher("/swagger-ui/**"),
                                     antMatcher("/v3/api-docs/**")).permitAll()
                                 .requestMatchers(HttpMethod.GET, "/books/**").hasRole("USER")
                                 .requestMatchers(HttpMethod.POST, "/books/**").hasRole("ADMIN")
                                 .requestMatchers(HttpMethod.PUT, "/books/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.GET, "/categories/**").hasRole("USER")
+                                .requestMatchers(HttpMethod.POST, "/categories/**").hasRole("ADMIN")
+                                .requestMatchers(HttpMethod.PUT, "/categories/**").hasRole("ADMIN")
                                 .anyRequest()
                                 .authenticated()
                 )

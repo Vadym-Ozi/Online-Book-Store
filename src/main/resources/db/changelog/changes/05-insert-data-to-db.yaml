@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: 01-create-book-table
+      id: insert-data-to-db.yaml
       author: Vadym P
       changes:
         - insert:
@@ -19,4 +19,3 @@ databaseChangeLog:
               - column: { name: first_name, value: "Iron" }
               - column: { name: last_name, value: "Man" }
               - column: { name: shipping_address, value: "W 47th ave" }
-              - column: { name: role, value: "ADMIN" }
