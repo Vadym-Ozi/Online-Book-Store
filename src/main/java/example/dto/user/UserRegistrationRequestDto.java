@@ -14,15 +14,20 @@ public class UserRegistrationRequestDto {
     @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
     private String email;
+
     @NotBlank
     @Password
     private String password;
+
     @NotBlank(message = "Confirm Password is mandatory")
     @Password
     private String repeatPassword;
+
     @NotBlank
     private String firstName;
+
     @NotBlank
     private String lastName;
+
     private String shippingAddress;
 }

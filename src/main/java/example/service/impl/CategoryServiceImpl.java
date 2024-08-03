@@ -1,12 +1,14 @@
 package example.service.impl;
 
 import example.dto.category.CategoryDto;
+import example.dto.category.CategoryRequestDto;
 import example.exception.EntityNotFoundException;
 import example.mapper.CategoryMapper;
 import example.model.Category;
 import example.repository.category.CategoryRepository;
 import example.service.CategoryService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -18,14 +20,14 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
+    public CategoryDto save(CategoryRequestDto categoryDto) {
         Category category = categoryMapper.toEntity(categoryDto);
         return categoryMapper.toDto(categoryRepository.save(category));
     }
 
     @Override
-    public List<CategoryDto> findAll() {
-        return categoryRepository.findAll()
+    public List<CategoryDto> findAll(Pageable pageable) {
+        return categoryRepository.findAll(pageable)
                 .stream()
                 .map(categoryMapper::toDto)
                 .toList();
@@ -40,15 +42,11 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Transactional
     @Override
-    public CategoryDto update(Long id, CategoryDto categoryDto) {
-        Category category = categoryMapper.toEntity(getById(id));
-        category.setId(id);
-        if (!(categoryDto.getName() == null|| categoryDto.getName().isBlank())) {
-            category.setName(categoryDto.getName());
-        }
-        if (!(categoryDto.getDescription() == null || categoryDto.getDescription().isBlank())) {
-            category.setDescription(categoryDto.getDescription());
-        }
+    public CategoryDto update(Long id, CategoryRequestDto categoryDto) {
+        Category category = categoryRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Can`t find category with id: " + id)
+        );
+        categoryMapper.updateCategoryFromDto(categoryDto, category);
         return categoryMapper.toDto(categoryRepository.save(category));
     }
 

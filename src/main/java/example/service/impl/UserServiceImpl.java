@@ -8,6 +8,7 @@ import example.model.Role;
 import example.model.User;
 import example.repository.role.RoleRepository;
 import example.repository.user.UserRepository;
+import example.service.ShoppingCartService;
 import example.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,9 +21,10 @@ import java.util.Set;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
+    private final ShoppingCartService shoppingCartService;
     private final UserMapper userMapper;
     private final PasswordEncoder encoder;
-    private final RoleRepository roleRepository;
 
     @Override
     @Transactional
@@ -31,9 +33,11 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException("This email is already used: " + request.getEmail());
         }
         User user = userMapper.toEntity(request);
-        Set<Role> roles = roleRepository.findByName(Role.RoleName.USER);
+        Set<Role> roles = roleRepository.findByName(Role.RoleName.ROLE_USER);
         user.setRoles(roles);
         user.setPassword(encoder.encode(request.getPassword()));
-        return userMapper.toUserRespondDto(userRepository.save(user));
+        userRepository.save(user);
+        shoppingCartService.createShoppingCart(user);
+        return userMapper.toUserRespondDto(user);
     }
 }

@@ -30,7 +30,8 @@ import org.springframework.web.bind.annotation.RestController;
                 title = "Online Book Store API",
                 version = "1.0",
                 description = "Online Book Store API",
-                contact = @Contact(name = "Vadym Pantielieienko", email = "vadympantielieienko@gmail.com")
+                contact = @Contact(name = "Vadym Pantielieienko",
+                        email = "vadympantielieienko@gmail.com")
         )
 )
 @RestController
@@ -71,8 +72,10 @@ public class BookController {
 
     @PreAuthorize("hasAnyRole('USER')")
     @GetMapping("/search")
-    @Operation(summary = "Search by param", description = "Get list of all books sorted by chosen parameter")
-    public List<BookDto> search(@Valid BookSearchParameters params, @ParameterObject @PageableDefault Pageable pageable) {
+    @Operation(summary = "Search by param",
+            description = "Get list of all books sorted by chosen parameter")
+    public List<BookDto> search(@Valid BookSearchParameters params,
+                                @ParameterObject @PageableDefault Pageable pageable) {
         return bookService.search(params, pageable);
     }
 }

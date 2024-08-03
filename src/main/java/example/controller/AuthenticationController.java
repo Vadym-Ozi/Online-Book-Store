@@ -21,8 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/auth")
 @Tag(name = "User Management", description = "Endpoints for managing Users registration")
 public class AuthenticationController {
-    private final UserService userService;
     private final AuthenticationService authenticationService;
+    private final UserService userService;
 
     @Operation(summary = "Registration of a new user", description = "Registration of a new user")
     @PostMapping("/registration")
