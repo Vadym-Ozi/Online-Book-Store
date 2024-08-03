@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
             throw new RegistrationException("This email is already used: " + request.getEmail());
         }
         User user = userMapper.toEntity(request);
-        Set<Role> roles = roleRepository.findByName(Role.RoleName.USER);
+        Set<Role> roles = roleRepository.findByName(Role.RoleName.ROLE_USER);
         user.setRoles(roles);
         user.setPassword(encoder.encode(request.getPassword()));
         return userMapper.toUserRespondDto(userRepository.save(user));
