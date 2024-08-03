@@ -36,13 +36,6 @@ public class User implements UserDetails {
     @EqualsAndHashCode.Exclude
     private Set<Role> roles;
 
-
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        return roles.stream()
-//                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
-//                .toList();
-//    }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles;
