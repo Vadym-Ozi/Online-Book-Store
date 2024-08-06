@@ -2,6 +2,7 @@ package example.controller;
 
 import example.dto.category.BookDtoWithoutCategoryIds;
 import example.dto.category.CategoryDto;
+import example.dto.category.CategoryRequestDto;
 import example.service.BookService;
 import example.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -9,6 +10,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +32,7 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/new")
     @Operation(summary = "Create a new category")
     public CategoryDto createCategory(@RequestBody @Valid CategoryDto categoryDto){
@@ -38,8 +42,8 @@ public class CategoryController {
     @PreAuthorize("hasRole('USER')")
     @GetMapping
     @Operation(summary = "Get list of all categories")
-    public List<CategoryDto> getAll() {
-        return categoryService.findAll();
+    public List<CategoryDto> getAll(@ParameterObject @PageableDefault Pageable pageable) {
+        return categoryService.findAll(pageable);
     }
 
     @PreAuthorize("hasRole('USER')")
@@ -49,11 +53,11 @@ public class CategoryController {
         return categoryService.getById(id);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER')")
     @PutMapping("/{id}")
     @Operation(summary = "Update category", description = "Update information about category with chosen id")
     public CategoryDto updateCategory(@PathVariable @Positive Long id,
-                                      @RequestBody @Valid CategoryDto categoryDto) {
+                                      @RequestBody @Valid CategoryRequestDto categoryDto) {
         return categoryService.update(id, categoryDto);
     }
 
