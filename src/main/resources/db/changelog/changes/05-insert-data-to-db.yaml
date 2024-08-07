@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-data-to-db.yaml
+      id: insert-data-to-db
       author: Vadym P
       changes:
         - insert:

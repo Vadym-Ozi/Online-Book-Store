@@ -14,6 +14,7 @@ import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@Validated
 @RequiredArgsConstructor
 @RequestMapping("/categories")
 @Tag(name = "Category Management", description = "Endpoints for managing categories")
@@ -32,10 +34,10 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/new")
     @Operation(summary = "Create a new category")
-    public CategoryDto createCategory(@RequestBody @Valid CategoryDto categoryDto){
+    public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto){
         return categoryService.save(categoryDto);
     }
 
@@ -53,7 +55,7 @@ public class CategoryController {
         return categoryService.getById(id);
     }
 
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     @Operation(summary = "Update category", description = "Update information about category with chosen id")
     public CategoryDto updateCategory(@PathVariable @Positive Long id,

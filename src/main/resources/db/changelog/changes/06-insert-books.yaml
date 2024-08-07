@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-books.yaml
+      id: insert-books
       author: Vadym P
       changes:
         - insert:

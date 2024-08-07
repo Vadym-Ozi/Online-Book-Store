@@ -9,7 +9,6 @@ import example.repository.category.CategoryRepository;
 import example.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.data.domain.Pageable;
 import java.util.List;
 
@@ -20,8 +19,9 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper categoryMapper;
 
     @Override
-    public CategoryDto save(CategoryDto categoryDto) {
-        Category category = categoryMapper.toEntity(categoryDto);
+    public CategoryDto save(CategoryRequestDto categoryDto) {
+        Category category = new Category();
+        categoryMapper.updateCategoryFromDto(categoryDto, category);
         return categoryMapper.toDto(categoryRepository.save(category));
     }
 
@@ -40,7 +40,6 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryMapper.toDto(category);
     }
 
-    @Transactional
     @Override
     public CategoryDto update(Long id, CategoryRequestDto categoryDto) {
         Category category = categoryRepository.findById(id).orElseThrow(
