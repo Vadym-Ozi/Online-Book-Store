@@ -26,7 +26,7 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @JoinColumn(name = "order_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
     private Order order;
 
@@ -39,4 +39,7 @@ public class OrderItem {
 
     @Column(nullable = false)
     private BigDecimal price;
+
+    @Column(nullable = false)
+    private boolean isDeleted;
 }
