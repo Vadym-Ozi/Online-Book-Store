@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class CategoryRequestDto {
     @NotBlank
     @Pattern(regexp = "^[A-Z][a-z]*$")

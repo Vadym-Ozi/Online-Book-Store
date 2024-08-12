@@ -4,7 +4,6 @@ import example.config.MapperConfig;
 import example.dto.category.CategoryDto;
 import example.dto.category.CategoryRequestDto;
 import example.model.Category;
-import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingTarget;
 
@@ -14,9 +13,5 @@ public interface CategoryMapper {
 
     Category toEntity(CategoryRequestDto categoryDTO);
 
-    @AfterMapping
-    default void updateCategoryFromDto(@MappingTarget CategoryRequestDto categoryDto, Category category) {
-        category.setName(categoryDto.getName());
-        category.setDescription(categoryDto.getDescription());
-    }
+    void updateCategoryFromDto(CategoryRequestDto categoryRequestDto, @MappingTarget Category category);
 }
