@@ -1,16 +1,16 @@
 databaseChangeLog:
   - changeSet:
-      id: 01-create-book-table
+      id: insert-data-to-db
       author: Vadym P
       changes:
         - insert:
             tableName: roles
             columns:
-              - column: {name: name, value: "ADMIN"}
+              - column: {name: name, value: "ROLE_ADMIN"}
         - insert:
             tableName: roles
             columns:
-              - column: { name: name, value: "USER" }
+              - column: { name: name, value: "ROLE_USER" }
         - insert:
             tableName: users
             columns:
@@ -19,4 +19,3 @@ databaseChangeLog:
               - column: { name: first_name, value: "Iron" }
               - column: { name: last_name, value: "Man" }
               - column: { name: shipping_address, value: "W 47th ave" }
-              - column: { name: role, value: "ADMIN" }

@@ -1,0 +1,17 @@
+databaseChangeLog:
+  - changeSet:
+      id: insert-data-to-categories
+      author: Vadym P
+      changes:
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Fantasy" }
+              - column: { name: description, value: "Books characterized by imaginary and unrealistic elements."}
+              - column: { name: is_deleted, valueBoolean: false}
+        - insert:
+            tableName: categories
+            columns:
+              - column: { name: name, value: "Historical" }
+              - column: { name: description, value: "Books with elements of real history." }
+              - column: { name: is_deleted, valueBoolean: false }
