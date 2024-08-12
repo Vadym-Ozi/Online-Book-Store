@@ -2,7 +2,7 @@ package example.controller;
 
 import example.dto.book.BookDto;
 import example.dto.book.BookSearchParameters;
-import example.dto.book.CreateBookRequestDto;
+import example.dto.book.BookRequestDto;
 import example.service.BookService;
 import java.util.List;
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;
@@ -17,13 +17,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @OpenAPIDefinition(
         info = @Info(
@@ -58,7 +52,7 @@ public class BookController {
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @Operation(summary = "Create a new book", description = "Create a new book")
-    public BookDto createBook(@RequestBody @Valid CreateBookRequestDto requestDto) {
+    public BookDto createBook(@RequestBody @Valid BookRequestDto requestDto) {
         return bookService.createBook(requestDto);
     }
 
@@ -77,5 +71,14 @@ public class BookController {
     public List<BookDto> search(@Valid BookSearchParameters params,
                                 @ParameterObject @PageableDefault Pageable pageable) {
         return bookService.search(params, pageable);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/{id}")
+    @Operation(summary = "Update book information",
+            description = "Update information about book with chosen id")
+    public BookDto updateBook(@PathVariable @Positive Long id,
+                                      @RequestBody @Valid BookRequestDto bookRequestDto) {
+        return bookService.updateBook(id, bookRequestDto);
     }
 }

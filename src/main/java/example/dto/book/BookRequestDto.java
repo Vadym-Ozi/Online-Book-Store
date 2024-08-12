@@ -11,7 +11,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class CreateBookRequestDto {
+public class BookRequestDto {
     @NotBlank
     private String title;
     @NotBlank

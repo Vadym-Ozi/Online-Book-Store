@@ -12,6 +12,8 @@ import java.util.Set;
 public interface OrderItemMapper {
     Set<OrderItemRespondDto> toDto(Set<OrderItem> orderItems);
 
+    OrderItemRespondDto toDto(OrderItem orderItem);
+
     @AfterMapping
     default void setBookId(@MappingTarget OrderItemRespondDto orderItemRespondDto, OrderItem orderItem) {
         Long id = orderItem.getBook().getId();

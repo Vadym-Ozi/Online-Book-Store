@@ -1,8 +1,11 @@
 package example.service.impl;
 
+import example.dto.order.OrderDto;
 import example.dto.order.OrderRequestDto;
 import example.dto.order.OrderRespondDto;
+import example.dto.order.OrderUpdateRequestDto;
 import example.dto.orderItem.OrderItemRespondDto;
+import example.exception.EntityNotFoundException;
 import example.mapper.OrderItemMapper;
 import example.mapper.OrderMapper;
 import example.model.Order;
@@ -14,11 +17,13 @@ import example.repository.shoppingCart.ShoppingCartRepository;
 import example.service.OrderItemService;
 import example.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -49,10 +54,26 @@ public class OrderServiceImpl implements OrderService {
         Order save = orderRepository.save(order);
 
         Set<OrderItemRespondDto> respondDto = orderItemMapper.toDto(orderItemSet);
-        OrderRespondDto dto = orderMapper.toDto(save);
+        OrderRespondDto dto = orderMapper.toRespondDto(save);
         dto.setOrders(respondDto);
         return dto;
+    }
 
+    @Override
+    public List<OrderDto> getAllOrders(Pageable pageable) {
+        String email = getUser().getEmail();
+        return orderRepository.findAllByUserEmail(email, pageable).stream()
+                .map(orderMapper::toDto)
+                .toList();
+    }
+
+    @Override
+    public void updateOrderStatus(Long id, OrderUpdateRequestDto status) {
+        Order order =  orderRepository.findById(id).orElseThrow(
+                () -> new EntityNotFoundException("Can`t find order with id: " + id)
+        );
+        order.setStatus(status.getStatus());
+        orderRepository.save(order);
     }
 
     private User getUser() {

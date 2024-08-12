@@ -2,7 +2,7 @@ package example.mapper;
 
 import example.config.MapperConfig;
 import example.dto.book.BookDto;
-import example.dto.book.CreateBookRequestDto;
+import example.dto.book.BookRequestDto;
 import example.dto.category.BookDtoWithoutCategoryIds;
 import example.model.Book;
 import example.model.Category;
@@ -15,11 +15,13 @@ import java.util.List;
 public interface BookMapper {
     BookDto toDto(Book book);
 
-    Book toEntity(CreateBookRequestDto requestDto);
+    Book toEntity(BookRequestDto requestDto);
 
     Book toEntity(BookDto bookDto);
 
     BookDtoWithoutCategoryIds toDtoWithoutCategories(Book book);
+
+    void updateBookFromDto(BookRequestDto requestDto, @MappingTarget Book book);
 
     @AfterMapping
     default void setCategoryIds(@MappingTarget BookDto bookDto, Book book) {
