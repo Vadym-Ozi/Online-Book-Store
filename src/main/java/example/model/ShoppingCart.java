@@ -15,13 +15,14 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter
 @SQLDelete(sql = "UPDATE shopping_carts SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_Deleted=false")
+@SQLRestriction("is_deleted=false")
 @Table(name = "shopping_carts")
 public class ShoppingCart {
     @Id
@@ -32,8 +33,8 @@ public class ShoppingCart {
     @OneToOne(fetch = FetchType.LAZY)
     private User user;
 
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
-    private Set<CartItem> cartItems;
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<CartItem> cartItems = new HashSet<>();
 
     @Column(nullable = false)
     private boolean isDeleted;
