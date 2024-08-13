@@ -19,9 +19,9 @@ import java.io.IOException;
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+    private static final String TOKEN_NAME = "Bearer ";
     private final JwtUtil jwtUtil;
     private final UserDetailsService userDetailsService;
-    private static final String TOKEN_NAME = "Bearer ";
 
     @Override
     protected void doFilterInternal(
