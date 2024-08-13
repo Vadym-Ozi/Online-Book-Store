@@ -6,5 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
     @EntityGraph(attributePaths = {"user", "cartItems.book"})
-    ShoppingCart findByUserEmail(String username);
+    ShoppingCart findByUserId(Long id);
 }
