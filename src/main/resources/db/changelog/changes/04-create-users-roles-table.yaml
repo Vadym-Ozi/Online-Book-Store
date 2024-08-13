@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: create-users-roles-table.yaml
+      id: create-users-roles-table
       author: Vadym P
       changes:
         - createTable:

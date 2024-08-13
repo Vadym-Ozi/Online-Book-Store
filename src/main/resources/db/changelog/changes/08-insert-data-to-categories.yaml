@@ -1,6 +1,6 @@
 databaseChangeLog:
   - changeSet:
-      id: insert-data-to-categories.yaml
+      id: insert-data-to-categories
       author: Vadym P
       changes:
         - insert:
