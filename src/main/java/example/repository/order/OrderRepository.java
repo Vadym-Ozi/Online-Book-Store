@@ -9,7 +9,7 @@ import java.util.Optional;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
     @EntityGraph(attributePaths = {"user", "orderItems"})
-    List<Order>  findAllByUserEmail(String email, Pageable pageable);
+    List<Order>  findAllByUserId(Pageable pageable, Long userId);
 
     @EntityGraph(attributePaths = "orderItems")
     Optional<Order> findById(Long id);

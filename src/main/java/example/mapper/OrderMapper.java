@@ -1,9 +1,7 @@
 package example.mapper;
 
 import example.config.MapperConfig;
-import example.dto.order.OrderDto;
-import example.dto.order.OrderRequestDto;
-import example.dto.order.OrderRespondDto;
+import example.dto.order.*;
 import example.model.Order;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
@@ -14,6 +12,9 @@ public interface OrderMapper {
     Order toEntity(OrderRequestDto requestDto);
 
     OrderDto toDto(Order order);
+
+    UpdateOrderResponseDto toUpdateRespondDto(@MappingTarget UpdateOrderResponseDto responseDto,
+                                              OrderUpdateRequestDto orderRequestDto);
 
     OrderRespondDto toRespondDto(Order order);
 

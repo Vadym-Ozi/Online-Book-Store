@@ -2,6 +2,7 @@ package example.security;
 
 import example.dto.user.UserLoginRequestDto;
 import example.dto.user.UserLoginResponseDto;
+import example.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -20,5 +21,10 @@ public class AuthenticationService {
         );
         String token = jwtUtil.generateToken(authentication.getName());
         return new UserLoginResponseDto(token);
+    }
+
+    public Long getUserId(Authentication authentication) {
+        User user = (User) authentication.getPrincipal();
+        return user.getId();
     }
 }

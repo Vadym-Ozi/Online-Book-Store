@@ -26,7 +26,7 @@ import java.util.Set;
 @Setter
 @Table(name = "orders")
 @SQLDelete(sql = "UPDATE orders SET is_deleted = true WHERE id = ?")
-@SQLRestriction("is_Deleted=false")
+@SQLRestriction("is_deleted=false")
 public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
