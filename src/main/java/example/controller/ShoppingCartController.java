@@ -1,6 +1,5 @@
 package example.controller;
 
-import example.dto.cartItem.CartItemDto;
 import example.dto.cartItem.RequestCartItemDto;
 import example.dto.cartItem.RequestUpdateCartItemDto;
 import example.dto.shoppingCart.ShoppingRespondCartDto;
@@ -35,7 +34,7 @@ public class ShoppingCartController {
     @PreAuthorize("hasRole('USER')")
     @PostMapping
     @Operation(summary = "Add item to cart")
-    public CartItemDto addItemToShoppingCart(@RequestBody @Valid RequestCartItemDto cartItemDto,
+    public ShoppingRespondCartDto  addItemToShoppingCart(@RequestBody @Valid RequestCartItemDto cartItemDto,
                                              Authentication authentication) {
         return shoppingCartService.addItemToCart(cartItemDto, getUserId(authentication));
     }

@@ -1,6 +1,5 @@
 package example.service;
 
-import example.dto.cartItem.CartItemDto;
 import example.dto.cartItem.RequestCartItemDto;
 import example.dto.cartItem.RequestUpdateCartItemDto;
 import example.dto.shoppingCart.ShoppingRespondCartDto;
@@ -11,7 +10,7 @@ public interface ShoppingCartService {
 
     void createShoppingCart(User user);
 
-    CartItemDto addItemToCart(RequestCartItemDto cartItemDto, Long userId);
+    ShoppingRespondCartDto  addItemToCart(RequestCartItemDto cartItemDto, Long userId);
 
     ShoppingRespondCartDto updateCartItem(RequestUpdateCartItemDto cartItemDto,
                                           Long cartItemId,
