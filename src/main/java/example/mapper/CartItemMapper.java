@@ -12,7 +12,6 @@ import java.util.Set;
 
 @Mapper(config = MapperConfig.class)
 public interface CartItemMapper {
-    CartItemDto toDto(CartItem cartItem);
 
     Set<RespondCartItemDto> toDto(Set<CartItem> cartItem);
 

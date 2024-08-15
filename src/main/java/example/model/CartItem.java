@@ -31,4 +31,12 @@ public class CartItem {
 
     @Column(nullable = false)
     private int quantity;
+
+    public CartItem() {
+    }
+
+    public CartItem(Book book, int quantity) {
+        this.book = book;
+        this.quantity = quantity;
+    }
 }
