@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
         User user = userRepository.findById(userId).orElseThrow(
                 () -> new EntityNotFoundException("User not found with id: " + userId)
         );
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUserEmail(user.getEmail());
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId);
         BigDecimal totalPrice = BigDecimal.ZERO;
         order.setUser(user);
         order.setStatus(Order.Status.PENDING);
