@@ -1,4 +1,4 @@
-package example.dto.category;
+package example.dto.book;
 
 import java.math.BigDecimal;
 import lombok.Getter;

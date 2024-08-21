@@ -1,6 +1,6 @@
 package example.controller;
 
-import example.dto.category.BookDtoWithoutCategoryIds;
+import example.dto.book.BookDtoWithoutCategoryIds;
 import example.dto.category.CategoryDto;
 import example.dto.category.CategoryRequestDto;
 import example.service.BookService;
@@ -34,7 +34,8 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
 
-    @PreAuthorize("hasRole('ADMIN')")
+    //admin
+    @PreAuthorize("hasRole('USER')")
     @PostMapping("/new")
     @Operation(summary = "Create a new category")
     public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto) {

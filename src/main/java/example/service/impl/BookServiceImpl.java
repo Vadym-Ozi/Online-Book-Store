@@ -3,7 +3,7 @@ package example.service.impl;
 import example.dto.book.BookDto;
 import example.dto.book.BookRequestDto;
 import example.dto.book.BookSearchParameters;
-import example.dto.category.BookDtoWithoutCategoryIds;
+import example.dto.book.BookDtoWithoutCategoryIds;
 import example.exception.EntityNotFoundException;
 import example.mapper.BookMapper;
 import example.model.Book;
@@ -83,7 +83,7 @@ public class BookServiceImpl implements BookService {
 
     private Book findById(Long id) {
         return bookRepository.findById(id).orElseThrow(
-                () -> new EntityNotFoundException("Cant find book by id: " + id));
+                () -> new EntityNotFoundException("Can`t find book with id: " + id));
     }
 
     private Set<Category> setCategories(BookRequestDto requestDto){
@@ -91,7 +91,7 @@ public class BookServiceImpl implements BookService {
         Set<Category> categories = new HashSet<>();
         for (Long id : categoryIds) {
             Category category = categoryRepository.findById(id).orElseThrow(
-                    () -> new EntityNotFoundException("Cant find book by id: " + id)
+                    () -> new EntityNotFoundException("Can`t find category with id: " + id)
             );
             categories.add(category);
         }

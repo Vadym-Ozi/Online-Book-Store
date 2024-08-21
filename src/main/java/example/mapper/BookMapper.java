@@ -3,7 +3,7 @@ package example.mapper;
 import example.config.MapperConfig;
 import example.dto.book.BookDto;
 import example.dto.book.BookRequestDto;
-import example.dto.category.BookDtoWithoutCategoryIds;
+import example.dto.book.BookDtoWithoutCategoryIds;
 import example.model.Book;
 import example.model.Category;
 import org.mapstruct.AfterMapping;

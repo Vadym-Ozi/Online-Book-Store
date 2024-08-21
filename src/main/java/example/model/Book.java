@@ -46,9 +46,6 @@ public class Book {
 
     private String coverImage;
 
-    @Column(nullable = false)
-    private boolean isDeleted;
-
     @ManyToMany
     @JoinTable(name = "books_categories",
             joinColumns = @JoinColumn(name = "book_id"),
@@ -56,4 +53,7 @@ public class Book {
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
     private Set<Category> categories = new HashSet<>();
+
+    @Column(nullable = false)
+    private boolean isDeleted;
 }
