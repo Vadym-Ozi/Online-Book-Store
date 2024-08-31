@@ -1,21 +1,15 @@
 package example.service.impl;
 
-import example.dto.book.BookDto;
-import example.dto.book.BookRequestDto;
 import example.dto.category.CategoryRequestDto;
 import example.dto.category.CategoryDto;
 import example.exception.EntityNotFoundException;
 import example.mapper.CategoryMapper;
-import example.model.Book;
 import example.model.Category;
 import example.repository.category.CategoryRepository;
-import example.service.CategoryService;
-import org.hibernate.exception.ConstraintViolationException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -23,7 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -36,10 +29,8 @@ import static org.mockito.Mockito.*;
 class CategoryServiceImplTest {
     @Mock
     private CategoryRepository categoryRepository;
-
     @Mock
     private CategoryMapper categoryMapper;
-
     @InjectMocks
     private CategoryServiceImpl categoryService;
     private List<Category> categoryList;
@@ -66,7 +57,6 @@ class CategoryServiceImplTest {
 
         when(categoryMapper.toDto(any(Category.class))).thenReturn(categoryDto);
         when(categoryRepository.save(any(Category.class))).thenReturn(category);
-
         doAnswer(invocation -> {
             Category cat = invocation.getArgument(1);
             CategoryRequestDto dto = invocation.getArgument(0);
@@ -79,7 +69,6 @@ class CategoryServiceImplTest {
         assertNotNull(result);
         assertEquals(categoryDto.getId(), result.getId());
         assertEquals(categoryDto.getName(), result.getName());
-
         verify(categoryMapper).updateCategoryFromDto(eq(categoryRequestDto), any(Category.class));
         verify(categoryRepository).save(any(Category.class));
     }
@@ -94,7 +83,6 @@ class CategoryServiceImplTest {
         when(categoryRepository.save(any(Category.class))).thenThrow(new RuntimeException("Database error"));
 
         assertThrows(RuntimeException.class, () -> categoryService.save(requestDto));
-
         verify(categoryRepository).save(any(Category.class));
     }
 
@@ -176,14 +164,12 @@ class CategoryServiceImplTest {
 
         when(categoryRepository.findById(id)).thenReturn(Optional.of(existingCategory));
         when(categoryRepository.save(existingCategory)).thenReturn(updatedCategory);
-
         when(categoryMapper.toDto(updatedCategory)).thenReturn(categoryDto);
 
         CategoryDto result = categoryService.update(id, categoryRequestDto);
 
         assertNotNull(result);
         assertEquals("Updated", result.getName());
-
         verify(categoryMapper, times(1))
                 .updateCategoryFromDto(categoryRequestDto, existingCategory);
 
@@ -213,6 +199,7 @@ class CategoryServiceImplTest {
     @DisplayName("Successfully delete by id")
     void testDeleteById_CorrectId_SuccessDeleted() {
         Long categoryId = 1L;
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(new Category()));
 
         categoryService.deleteById(categoryId);
 
@@ -220,17 +207,17 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    @DisplayName("Fail to delete category with not exist id")
+    @DisplayName("Fail to delete category with non-existent id")
     void testDeleteById_NotExistId_NotFound() {
         Long categoryId = 10000L;
 
-        doThrow(new EntityNotFoundException("Cant find category by id: " + categoryId))
-                .when(categoryRepository).deleteById(categoryId);
+        when(categoryRepository.findById(categoryId)).thenReturn(Optional.empty());
 
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
                 () -> categoryService.deleteById(categoryId));
-        assertEquals("Cant find category by id: " + categoryId, exception.getMessage());
-        verify(categoryRepository).deleteById(categoryId);
+
+        assertEquals(String.format("Category with id %d not exist", categoryId), exception.getMessage());
+        verify(categoryRepository, never()).deleteById(categoryId);
     }
 
     private void setRequestList() {
@@ -257,7 +244,6 @@ class CategoryServiceImplTest {
         updatedCategory.setName(requestList.get(1).getName());
         updatedCategory.setDescription(requestList.get(1).getDescription());
         categoryList.add(updatedCategory);
-
     }
 
     private void setCategoryDtoList() {

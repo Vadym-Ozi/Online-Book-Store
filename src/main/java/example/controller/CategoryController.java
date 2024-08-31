@@ -34,11 +34,11 @@ public class CategoryController {
     private final CategoryService categoryService;
     private final BookService bookService;
 
-    //admin
-    @PreAuthorize("hasRole('USER')")
-    @PostMapping("/new")
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping
     @Operation(summary = "Create a new category")
-    public CategoryDto createCategory(@RequestBody @Valid CategoryRequestDto categoryDto) {
+    public CategoryDto createCategory(
+            @RequestBody @Valid CategoryRequestDto categoryDto) {
         return categoryService.save(categoryDto);
     }
 

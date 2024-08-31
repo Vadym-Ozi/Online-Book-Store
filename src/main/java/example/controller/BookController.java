@@ -1,6 +1,7 @@
 package example.controller;
 
 import example.dto.book.BookDto;
+import example.dto.book.BookDtoWithoutCategoryIds;
 import example.dto.book.BookSearchParameters;
 import example.dto.book.BookRequestDto;
 import example.service.BookService;
@@ -58,8 +59,7 @@ public class BookController {
         return bookService.getById(id);
     }
 
-    //ADMIN
-    @PreAuthorize("hasRole('USER')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     @Operation(summary = "Create a new book", description = "Create a new book")
     public BookDto createBook(@RequestBody @Valid BookRequestDto requestDto) {
@@ -88,7 +88,7 @@ public class BookController {
     @Operation(summary = "Update book information",
             description = "Update information about book with chosen id")
     public BookDto updateBook(@PathVariable @Positive Long id,
-                                      @RequestBody @Valid BookRequestDto bookRequestDto) {
+                              @RequestBody @Valid BookRequestDto bookRequestDto) {
         return bookService.updateBook(id, bookRequestDto);
     }
 }

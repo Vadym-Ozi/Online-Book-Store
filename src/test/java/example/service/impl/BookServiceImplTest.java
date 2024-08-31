@@ -11,7 +11,6 @@ import example.model.Category;
 import example.repository.book.BookRepository;
 import example.repository.book.BookSpecificationBuilder;
 import example.repository.category.CategoryRepository;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -35,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -220,7 +218,7 @@ class BookServiceImplTest {
     @DisplayName("Fail to get book with not exist id")
     void testGetById_NotExistID_BookNotFound() {
         Long bookId = 1L;
-        String expectedErrorMessage = "Can`t find book by id: " + bookId;
+        String expectedErrorMessage = "Can`t find book with id: " + bookId;
 
         when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
 
@@ -236,6 +234,7 @@ class BookServiceImplTest {
     void testDeleteById_CorrectId_SuccessDeleted() {
         Long bookId = 1L;
 
+        when(bookRepository.findById(bookId)).thenReturn(Optional.of(new Book()));
         bookService.deleteById(bookId);
 
         verify(bookRepository).deleteById(bookId);
@@ -246,12 +245,14 @@ class BookServiceImplTest {
     void testDeleteById_NotExistId_BookNotFound() {
         Long bookId = 10000L;
 
-        doThrow(new EntityNotFoundException("Cant find book by id: " + bookId))
-                .when(bookRepository).deleteById(bookId);
+        when(bookRepository.findById(bookId)).thenReturn(Optional.empty());
 
-        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> bookService.deleteById(bookId));
-        assertEquals("Cant find book by id: " + bookId, exception.getMessage());
-        verify(bookRepository).deleteById(bookId);
+        EntityNotFoundException exception = assertThrows(EntityNotFoundException.class,
+                () -> bookService.deleteById(bookId));
+
+        assertEquals(String.format("Book with id %d not exist", bookId), exception.getMessage());
+
+        verify(bookRepository, never()).deleteById(bookId);
     }
 
     @Test
@@ -432,7 +433,7 @@ class BookServiceImplTest {
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
             bookService.updateBook(bookId, bookRequestDto);
         });
-        assertEquals("Can`t find book by id: " + bookId, exception.getMessage());
+        assertEquals("Can`t find book with id: " + bookId, exception.getMessage());
         verify(bookRepository).findById(bookId);
         verifyNoMoreInteractions(bookMapper);
         verifyNoMoreInteractions(bookRepository);
@@ -452,7 +453,7 @@ class BookServiceImplTest {
         EntityNotFoundException exception = assertThrows(EntityNotFoundException.class, () -> {
             bookService.updateBook(bookId, requestDto);
         });
-        assertEquals("Can`t find category by id: " + 1L, exception.getMessage());
+        assertEquals("Can`t find category with id: " + 1L, exception.getMessage());
 
         verify(bookRepository).findById(bookId);
         verify(categoryRepository).findById(1L);

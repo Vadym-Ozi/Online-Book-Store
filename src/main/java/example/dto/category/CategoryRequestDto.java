@@ -9,8 +9,8 @@ import lombok.Setter;
 @Setter
 @Getter
 public class CategoryRequestDto {
+    @Pattern(regexp = "^[A-Z][a-z]*(\\s[a-z]+)?$")
     @NotBlank
-    @Pattern(regexp = "^[A-Z][a-z]*$")
     @Size(min = 3, max = 20)
     private String name;
     @Size(max = 200)

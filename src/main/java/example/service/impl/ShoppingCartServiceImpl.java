@@ -76,7 +76,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
     @Override
     @Transactional
-    public void deleteCart(Long cartItemId, Long userId) {
+    public void deleteCartItem(Long cartItemId, Long userId) {
         ShoppingCart shoppingCart = shoppingCartRepository.findByUserId(userId);
         CartItem cartItem = cartItemRepository
                 .findByIdAndShoppingCartId(cartItemId, shoppingCart.getId());
