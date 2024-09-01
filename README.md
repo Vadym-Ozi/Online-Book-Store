@@ -34,6 +34,7 @@ read today!
   <a href="#bulb-what-is-this-API">About</a> &nbsp;&bull;&nbsp;
   <a href="#bulb-requirements">Requirements</a> &nbsp;&bull;&nbsp;
   <a href="#bulb-installation-and-build">Installation and build</a> &nbsp;&bull;&nbsp;
+  <a href="#bulb-model-interaction">Model Interaction</a> &nbsp;&bull;&nbsp;
   <a href="#bulb-usage-examples-examples-of-how-to-use-the-project-or-its-api">Usage Examples</a> &nbsp;&bull;&nbsp;
   <a href="#bulb-contributors">Contributors</a> &nbsp;&bull;&nbsp;
   <a href="#bulb-contacts-and-authors">Contacts and Authors</a>
@@ -139,6 +140,14 @@ http://localhost:8080/api/swagger-ui/
 ```bash
 docker-compose down
 ```
+
+![------------------------------------------------](docs/rainbow.png)
+
+## :bulb: Model Interaction
+
+<p align="center">
+    <img src="docs/diagram.png" align="center" height="625" width="900" />
+</p>
 
 ![------------------------------------------------](docs/rainbow.png)
 
