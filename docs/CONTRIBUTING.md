@@ -9,10 +9,8 @@ contribution guidelines before making or requesting a change.
 2. Create a new topic branch on your local forked copy. Its name must respect the git flow branch naming convention. 
 You can name it `feat/[NAME_OF_YOUR_FEATURE]` or `fix/[NAME_OF_YOUR_FIX]`. To create a new branch for your feature
 or your fix, please run `git checkout -b [NAME_OF_YOUR_BRANCH]` and follow the steps.
-3. Before committing any change, install [**Husky hooks**](https://typicode.github.io/husky/get-started.html) with `npm i`.
-Hooks will ensure that your branch name, commit, code quality and tests respect the project conventions and rules.
-4. Push your topic branch up to your fork. Don't forget to add *Tests*.
-5. [**Open a Pull Request**](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests) with a clear title and description against the `master` branch.
+3. Push your topic branch up to your fork. Don't forget to add *Tests*.
+4. [**Open a Pull Request**](https://docs.github.com/en/free-pro-team@latest/github/collaborating-with-issues-and-pull-requests/about-pull-requests) with a clear title and description against the `master` branch.
 
 ## 🆕 Commit Messages
 
