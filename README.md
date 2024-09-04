@@ -263,7 +263,7 @@ Response:
 
 There is no contributor yet. Want to be the first ?
 
-If you want to contribute to this project, please read the [**contribution guide**](https://github.com/Vadym-Ozi/Online-Book-store/blob/master/CONTRIBUTING.md).
+If you want to contribute to this project, please read the [**contribution guide**](https://github.com/Vadym-Ozi/Online-Book-store/blob/master/docs/CONTRIBUTING.md).
 
 ![------------------------------------------------](docs/rainbow.png)
 
